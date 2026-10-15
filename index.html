@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Helpy Lab — ИИ-сотрудники для бизнеса</title>
+<meta name="description" content="Минус 10 часов рутины в неделю. Внедряю ИИ-сотрудников для владельцев бизнеса и экспертов за 14 дней. Бесплатный аудит в Zoom.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0f12; --bg2:#14171c; --card:#181c22; --line:#262b33;
+  --text:#eef1f5; --muted:#9aa3ae; --accent:#c6f432; --accent-ink:#11140a; --danger:#ff6b6b;
+  --radius:20px; --max:1160px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:var(--bg);color:var(--text);font-family:Manrope,system-ui,-apple-system,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.btn:focus-visible{outline-color:var(--text)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 16px}
+section{padding:72px 0}
+h1,h2,h3{line-height:1.12;letter-spacing:-.02em}
+h2{font-size:clamp(28px,4.4vw,44px);font-weight:800;margin-bottom:14px}
+.lead{color:var(--muted);font-size:clamp(16px,2vw,19px);max-width:680px}
+.hl{color:var(--accent)}
+.nw{white-space:nowrap}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:17px;padding:17px 28px;border-radius:14px;text-decoration:none;border:0;cursor:pointer;transition:transform .15s,box-shadow .15s;font-family:inherit}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px -10px rgba(198,244,50,.55)}
+.btn-sm{padding:11px 18px;font-size:15px;border-radius:12px}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn-ghost:hover{box-shadow:none;border-color:var(--muted)}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(13,15,18,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.logo{font-weight:800;text-decoration:none;font-size:17px;white-space:nowrap}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:26px}
+.nav-links a{text-decoration:none;color:var(--muted);font-weight:600;font-size:15px}
+.nav-links a:hover{color:var(--text)}
+
+/* hero */
+.hero{padding:64px 0 72px;position:relative}
+/* живой фон: пятна света двигаются за мышкой и при скролле */
+.glow{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.glow span{position:absolute;border-radius:50%;will-change:transform}
+.glow .b1{width:70vmax;height:70vmax;left:45%;top:-30vmax;background:radial-gradient(closest-side,rgba(198,244,50,.22),rgba(198,244,50,.07) 55%,transparent)}
+.glow .b2{width:60vmax;height:60vmax;left:-25vmax;top:30%;background:radial-gradient(closest-side,rgba(64,214,160,.15),rgba(64,214,160,.04) 55%,transparent)}
+.glow .b3{width:45vmax;height:45vmax;left:60%;top:70%;background:radial-gradient(closest-side,rgba(198,244,50,.13),transparent)}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;position:relative}
+.hero h1{font-size:clamp(34px,5.6vw,62px);font-weight:800;margin-bottom:20px}
+.hero .lead{margin-bottom:30px}
+.price{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:16px}
+.price s{color:var(--muted);font-size:18px;font-weight:600;text-decoration-color:var(--danger);text-decoration-thickness:2px}
+.free{background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:14px;padding:5px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.04em}
+.price-note{color:var(--muted);font-size:14px}
+.price-card{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;background:var(--card);border:1px solid rgba(198,244,50,.3);border-radius:16px;padding:16px 20px;margin-top:20px}
+.price-card b{font-size:16px}
+.price-card .price{margin:0}
+.bonus{margin-top:14px;background:rgba(198,244,50,.07);border:1px dashed rgba(198,244,50,.4);border-radius:16px;padding:18px 20px}
+.bonus h3{font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);margin-bottom:10px}
+.bonus ul{list-style:none;display:grid;gap:8px}
+.bonus li{display:flex;gap:10px;font-size:15.5px}
+.bonus li::before{content:"🎁"}
+
+/* chat mock */
+.chat{background:var(--bg2);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 30px 80px -30px rgba(0,0,0,.7)}
+.chat-head{display:flex;align-items:center;gap:10px;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.ava{width:38px;height:38px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:14px}
+.chat-head b{display:block;font-size:15px}
+.chat-head small{color:var(--accent);font-size:12px}
+.chat-body{display:flex;flex-direction:column;gap:10px;min-height:300px}
+.msg{max-width:88%;padding:10px 14px;border-radius:16px;font-size:14px;line-height:1.45;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
+.msg.show{opacity:1;transform:none}
+.msg.in{background:#232831;align-self:flex-start;border-bottom-left-radius:4px}
+.msg.out{background:rgba(198,244,50,.14);border:1px solid rgba(198,244,50,.25);align-self:flex-end;border-bottom-right-radius:4px}
+.msg.sys{align-self:center;background:transparent;color:var(--muted);font-size:12.5px;padding:4px 10px;border:1px dashed var(--line)}
+.msg time{display:block;font-size:11px;color:var(--muted);margin-top:4px}
+
+/* cards */
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.card h3{font-size:19px;margin-bottom:8px;font-weight:700}
+.card p{color:var(--muted);font-size:15.5px}
+.icon{font-size:26px;margin-bottom:14px;display:block}
+.sec-head{margin-bottom:36px}
+
+
+/* calculator */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:20px;background:var(--bg2);border:1px solid var(--line);border-radius:28px;padding:32px}
+.range{margin-bottom:26px}
+.range label{display:flex;justify-content:space-between;font-weight:600;font-size:15px;margin-bottom:10px;gap:10px}
+.range output{color:var(--accent);font-weight:800;white-space:nowrap}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:6px;background:var(--line)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--accent);cursor:pointer;border:4px solid var(--bg2);box-shadow:0 0 0 1px var(--accent)}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer;border:4px solid var(--bg2)}
+.calc-res{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.calc-res .big{font-size:clamp(34px,5vw,52px);font-weight:800;color:var(--accent);line-height:1.05}
+.calc-res .lbl{color:var(--muted);font-size:15px;margin-bottom:12px}
+.calc-res .btn{margin-top:10px;align-self:flex-start}
+.calc-hint{color:var(--muted);font-size:13px;margin-top:4px}
+
+/* services */
+.svc-note{margin-top:22px;color:var(--muted)}
+.svc-note b{color:var(--text)}
+
+/* steps */
+.steps{counter-reset:s}
+.card.step{position:relative;padding-top:64px}
+.step::before{counter-increment:s;content:"0" counter(s);position:absolute;top:22px;left:26px;font-weight:800;font-size:28px;color:var(--accent)}
+.step .tag{display:inline-block;font-size:12px;font-weight:700;color:var(--accent-ink);background:var(--accent);padding:3px 10px;border-radius:20px;margin-bottom:10px}
+.guarantee{margin-top:20px;display:flex;gap:18px;align-items:flex-start;background:rgba(198,244,50,.07);border:1px solid rgba(198,244,50,.3);border-radius:var(--radius);padding:24px 26px}
+.guarantee .icon{margin:0;font-size:30px}
+.guarantee h3{font-size:19px;margin-bottom:6px}
+.guarantee p{color:var(--muted);font-size:15.5px}
+
+/* audit */
+.audit{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.checks{list-style:none;display:grid;gap:14px}
+.checks li{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.checks li::before{content:"✓";flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:14px}
+
+/* reviews */
+.review{display:flex;flex-direction:column;gap:16px}
+.review .who{display:flex;gap:12px;align-items:center}
+.review .who .ava{background:#2a303a;color:var(--muted)}
+.review .who b{display:block;font-size:15px}
+.review .who small{color:var(--muted);font-size:13px}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ba div{background:var(--bg2);border-radius:12px;padding:12px}
+.ba small{display:block;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.ba b{font-size:18px}
+.ba .after b{color:var(--accent)}
+.review blockquote{color:var(--muted);font-size:15.5px;font-style:italic}
+.placeholder{border-style:dashed}
+
+/* fit */
+.fit .card ul{list-style:none;display:grid;gap:12px;margin-top:14px}
+.fit .card li{display:flex;gap:10px;color:var(--muted);font-size:15.5px}
+.fit .yes li::before{content:"✓";color:var(--accent);font-weight:800}
+.fit .no li::before{content:"✕";color:var(--danger);font-weight:800}
+
+/* form */
+.form-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:start}
+.next{list-style:none;display:grid;gap:18px;margin-top:28px}
+.next li{display:flex;gap:14px;align-items:flex-start}
+.next span{flex:none;width:34px;height:34px;border-radius:10px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;font-weight:800;color:var(--accent)}
+.next p{color:var(--muted);font-size:15.5px}
+.next b{color:var(--text);display:block}
+form.card{padding:30px}
+.field{margin-bottom:16px}
+.field label{display:block;font-weight:600;font-size:14px;margin-bottom:7px}
+.field label i{color:var(--muted);font-style:normal;font-weight:500}
+.field input,.field textarea{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:var(--text);font:inherit;font-size:16px;transition:border-color .15s}
+.field textarea{min-height:96px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--accent)}
+.field input.err,.field textarea.err{border-color:var(--danger)}
+.agree{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--muted);margin:6px 0 20px}
+.agree input{margin-top:3px;width:18px;height:18px;accent-color:var(--accent);flex:none}
+.agree.err{color:var(--danger)}
+.hp{position:absolute;left:-9999px;opacity:0;height:0;width:0}
+form .btn{width:100%}
+.status{margin-top:14px;font-size:15px;display:none;padding:14px 16px;border-radius:12px}
+.status.ok{display:block;background:rgba(198,244,50,.1);color:var(--accent)}
+.status.bad{display:block;background:rgba(255,107,107,.1);color:var(--danger)}
+.status a{color:var(--text);font-weight:700}
+
+/* faq */
+.faq{max-width:820px}
+details{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;padding:22px 40px 22px 0;font-weight:700;font-size:18px;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:4px;top:16px;font-size:28px;color:var(--accent);transition:transform .2s;font-weight:500}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--muted);padding:0 0 22px;font-size:16px;max-width:720px}
+
+/* final cta */
+.final{text-align:center;background:linear-gradient(135deg,rgba(198,244,50,.14),rgba(198,244,50,.03));border:1px solid rgba(198,244,50,.3);border-radius:32px;padding:56px 24px}
+.final .lead{margin:0 auto 28px}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:40px 0 100px;color:var(--muted);font-size:15px}
+.foot{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-start}
+.foot small{display:block;margin-top:6px}
+.socials{display:flex;gap:10px;flex-wrap:wrap}
+.social{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:var(--card);border:1px solid var(--line);color:var(--text);transition:background .2s,color .2s,border-color .2s,transform .2s}
+.social svg{width:20px;height:20px}
+.social:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);transform:translateY(-2px)}
+.foot-note{margin-top:28px;font-size:12.5px;color:var(--muted)}
+
+
+/* floating cta */
+.float-cta{position:fixed;left:16px;right:16px;bottom:16px;z-index:60;display:none;transform:translateY(120%);transition:transform .3s}
+.float-cta.show{transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .msg{opacity:1;transform:none;transition:none}
+  .btn{transition:none}
+}
+
+/* компактный масштаб: мельче шрифты и элементы, больше воздуха */
+:root{--max:1080px;--radius:18px}
+body{font-size:16px}
+section{padding:88px 0}
+h2{font-size:clamp(26px,3.3vw,36px);font-weight:700;letter-spacing:-.025em;margin-bottom:12px}
+.lead{font-size:clamp(15px,1.5vw,17px);max-width:600px}
+.sec-head{margin-bottom:32px}
+.btn{font-size:15.5px;padding:14px 24px;border-radius:12px}
+.btn-sm{font-size:14px;padding:9px 16px;border-radius:10px}
+.nav{height:60px}
+.logo{font-size:16px}
+.nav-links a{font-size:14px}
+.hero{padding:72px 0 88px}
+.hero-grid{gap:56px}
+.hero h1{font-size:clamp(32px,4.3vw,50px);font-weight:700;letter-spacing:-.03em;margin-bottom:18px}
+.hero .lead{margin-bottom:26px}
+.price s{font-size:16px}
+.free{font-size:12px;padding:4px 10px}
+.price-note{font-size:13px}
+.chat{padding:16px;border-radius:20px}
+.chat-body{min-height:270px}
+.msg{font-size:13px}
+.grid{gap:14px}
+.card{padding:22px}
+.card h3{font-size:16.5px}
+.card p{font-size:14.5px}
+.icon{font-size:22px;margin-bottom:12px}
+.calc{padding:26px;border-radius:22px}
+.range{margin-bottom:22px}
+.range label{font-size:14px}
+.calc-res{padding:24px;border-radius:16px}
+.calc-res .big{font-size:clamp(28px,3.4vw,38px);font-weight:700;letter-spacing:-.02em}
+.calc-res .lbl{font-size:14px}
+.svc-note{font-size:15px}
+.card.step{padding-top:56px}
+.step::before{font-size:22px;top:20px;left:22px}
+.step .tag{font-size:11px}
+.guarantee{padding:20px 22px}
+.guarantee h3{font-size:16.5px}
+.guarantee p{font-size:14.5px}
+.guarantee .icon{font-size:24px}
+.checks li{padding:14px 16px;font-size:15px}
+.checks li::before{width:22px;height:22px;font-size:12px}
+.bonus li{font-size:14.5px}
+.bonus h3{font-size:13px}
+.review blockquote,.fit .card li,.next p{font-size:14.5px}
+.ba b{font-size:16px}
+.price-card b{font-size:15px}
+.field label{font-size:13.5px}
+.field input,.field textarea{padding:12px 14px;font-size:15px}
+form.card{padding:26px}
+summary{font-size:16px;padding:18px 40px 18px 0}
+summary::after{top:12px;font-size:24px}
+details p{font-size:15px;padding-bottom:18px}
+.final{padding:52px 24px;border-radius:26px}
+
+/* responsive */
+@media (max-width:1000px){
+  .g4{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:860px){
+  section{padding:56px 0}
+  .nav-links{display:none}
+  .hero{padding:40px 0 56px}
+  .hero-grid,.calc,.audit,.form-grid{grid-template-columns:1fr}
+  .hero-grid{gap:36px}
+  .calc{padding:22px}
+  .float-cta{display:block}
+}
+@media (max-width:600px){
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .card{padding:22px}
+  form.card{padding:22px}
+  .btn{width:100%}
+  .btn{white-space:nowrap;padding-left:20px;padding-right:20px}
+  .nav .btn{width:auto;white-space:nowrap;padding:10px 14px;font-size:14px}
+  .logo{font-size:15px}
+  .calc-res .btn{align-self:stretch}
+  .guarantee{flex-direction:column;gap:10px}
+  summary{font-size:16.5px}
+  .final{padding:40px 18px}
+}
+</style>
+</head>
+<body>
+<div class="glow" aria-hidden="true"><span class="b1"></span><span class="b2"></span><span class="b3"></span></div>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="logo">Helpy<span> Lab</span></a>
+    <nav class="nav-links">
+      <a href="#services">Что делаю</a>
+      <a href="#how">Как работает</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a href="#form" class="btn btn-sm">Бесплатный аудит</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- 1. HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>Минус 10&nbsp;часов рутины в&nbsp;неделю. <span class="nw">ИИ-сотрудник</span> для&nbsp;твоего бизнеса за&nbsp;14&nbsp;дней</h1>
+      <p class="lead"><b style="color:var(--text)">Для владельцев бизнеса, тонущих в переписке, заявках и рутине.</b> Заявки, переписка, документы и отчёты уходят нейросети, а ты возвращаешь время на работу и жизнь.</p>
+      <a href="#form" class="btn">Записаться на бесплатный аудит</a>
+      <div class="price"><s>5 000 ₽</s><span class="free">Бесплатно</span><span class="price-note">60 минут в Zoom</span></div>
+    </div>
+    <div class="chat" aria-label="Пример работы ИИ-сотрудника">
+      <div class="chat-head">
+        <div class="ava">ИИ</div>
+        <div><b>ИИ-сотрудник</b><small>● работает 24/7</small></div>
+      </div>
+      <div class="chat-body" id="chat"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. ПРОБЛЕМЫ -->
+<section class="pain">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Бизнес растёт, а&nbsp;рутина растёт быстрее</h2>
+    </div>
+    <div class="grid g4">
+      <div class="card"><span class="icon">🏊‍♂️</span><h3>Тону в переписке и заявках</h3><p>Весь день отвечаешь на одни и те же вопросы, а на главное времени не остаётся.</p></div>
+      <div class="card"><span class="icon">🤷🏼‍♂️</span><h3>Пробовал ChatGPT — не разобрался</h3><p>Понятно, что ИИ надо внедрять, но непонятно, с чего начать и какую задачу ему отдать.</p></div>
+      <div class="card"><span class="icon">💸</span><h3>Нанимать дорого</h3><p>Работы всё больше, а новый сотрудник — это трата денег, сил и времени.</p></div>
+      <div class="card"><span class="icon">🧩</span><h3>Готовые решения не подходят</h3><p>Нужен ассистент, который учится на данных бизнеса и работает по твоим правилам.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. КАЛЬКУЛЯТОР -->
+<section id="calc">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Сколько тебе стоит рутинная работа</h2>
+      <p class="lead">Проверь, сколько времени и денег у тебя съедает однообразная, механическая работа.</p>
+    </div>
+    <div class="calc">
+      <div>
+        <div class="range">
+          <label for="r-hours">Часов в день уходит на рутину <output id="o-hours">3 ч</output></label>
+          <input type="range" id="r-hours" min="1" max="8" step="0.5" value="3">
+        </div>
+        <div class="range">
+          <label for="r-days">Дней в неделю работаешь <output id="o-days">5</output></label>
+          <input type="range" id="r-days" min="1" max="7" step="1" value="5">
+        </div>
+        <div class="range">
+          <label for="r-rate">Сколько стоит твой час <output id="o-rate">2 000 ₽</output></label>
+          <input type="range" id="r-rate" min="300" max="10000" step="100" value="2000">
+        </div>
+        <p class="calc-hint">В месяце считаем 4,3 недели. Какую часть рутины заберёт ИИ — посчитаем на аудите по твоим задачам.</p>
+      </div>
+      <div class="calc-res">
+        <div class="lbl">Рутина съедает в месяц</div>
+        <div class="big" id="res-total" style="color:var(--text)">≈ 65 ч</div>
+        <div class="lbl">это <b id="res-money" style="color:var(--text)">≈ 129 000 ₽</b> твоего времени в месяц, а за год —</div>
+        <div class="big" id="res-year">≈ 1,55 млн ₽</div>
+        <a href="#form" class="btn">Вернуть это время</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. ЧТО Я ДЕЛАЮ -->
+<section id="services" class="svc">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Возвращаю часы и деньги с помощью ИИ</h2>
+      <p class="lead">Собираю ИИ-ассистентов под конкретные задачи. Убираю бесконечные ответы, таблицы и отчёты, чтобы хватало времени на главное.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card"><span class="icon">⚡</span><h3>Заявки</h3><p>Каждая заявка получает ответ за минуту — даже ночью и в выходные. Данные сразу попадают в таблицу или CRM.</p></div>
+      <div class="card"><span class="icon">💬</span><h3>Переписка с клиентами</h3><p>Ответы на частые вопросы, напоминания о записи и оплате — твоим голосом и по твоим правилам.</p></div>
+      <div class="card"><span class="icon">📄</span><h3>Документы и КП</h3><p>Коммерческое предложение, договор или счёт собираются за пару минут вместо часа.</p></div>
+      <div class="card"><span class="icon">📊</span><h3>Отчёты</h3><p>Сводка по делам, заявкам и деньгам приходит тебе в Telegram каждое утро. Без ручного сбора.</p></div>
+      <div class="card"><span class="icon">🧑‍💼</span><h3>Найм и первичный отбор</h3><p>Ассистент пишет вакансии, отвечает кандидатам и отсеивает неподходящих до звонка.</p></div>
+      <div class="card"><span class="icon">🎬</span><h3>Контент как рутина</h3><p>Контент-план, сценарии и посты на месяц — за час вместо двух дней.</p></div>
+    </div>
+    <p class="svc-note"><b>Всю систему делаю за тебя.</b> Без программирования. Система остаётся твоей навсегда, а не по подписке.</p>
+  </div>
+</section>
+
+<!-- 5. КАК ЭТО РАБОТАЕТ -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>От разговора до работающего <span class="nw">ИИ-сотрудника</span> — 4 шага</h2>
+    </div>
+    <div class="grid g4 steps">
+      <div class="card step"><span class="tag">Бесплатно</span><h3>Аудит в Zoom</h3><p>60 минут разбираем твою неделю и находим процессы, которые можно отдать ИИ. В итоге ты получаешь карту автоматизации бизнеса в Notion.</p></div>
+      <div class="card step"><span class="tag">День 1</span><h3>Фиксируем задачи</h3><p>Письменно договариваемся о 2–3 задачах и замеряем, сколько часов они сейчас занимают.</p></div>
+      <div class="card step"><span class="tag">14 дней</span><h3>Собираю под ключ</h3><p>Настраиваю 2–3 ИИ-ассистента под твои процессы и провожу созвон-обучение для тебя и команды.</p></div>
+      <div class="card step"><span class="tag">+2 недели</span><h3>Сопровождение</h3><p>Две недели на связи в чате: донастраиваю, отвечаю на вопросы, затем замеряем часы «после».</p></div>
+    </div>
+    <div class="guarantee">
+      <span class="icon">🛡️</span>
+      <div>
+        <h3>Гарантия результата</h3>
+        <p>Если через 14 дней ассистенты не выполняют обговоренные задачи — донастраиваю их бесплатно, пока не заработают. Условие одно: ты действительно пользуешься системой.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. ЧТО ПОЛУЧИШЬ НА АУДИТЕ -->
+<section>
+  <div class="wrap audit">
+    <div>
+      <h2>Что ты получишь за&nbsp;60&nbsp;минут</h2>
+      <p class="lead" style="margin-bottom:28px">Со встречи ты уходишь с конкретным планом — даже если решим не работать вместе.</p>
+      <a href="#form" class="btn">Записаться на аудит</a>
+    </div>
+    <div>
+      <ul class="checks">
+        <li>Разберём твою рабочую неделю: куда на самом деле уходит время</li>
+        <li>Найдём процессы, которые ИИ заберёт уже сейчас, и посчитаем часы</li>
+        <li>Покажу 1–2 решения вживую на экране</li>
+      </ul>
+      <div class="bonus">
+        <h3>Бонусом после встречи</h3>
+        <ul>
+          <li>Карта автоматизации в Notion</li>
+          <li>Топ-5 задач, которые ИИ может забрать уже сейчас</li>
+          <li>Готовые промпты, которые работают с первого дня</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. ДЛЯ КОГО -->
+<section class="fit">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Кому подойдёт, а кому нет</h2>
+    </div>
+    <div class="grid g2">
+      <div class="card yes">
+        <h3>Подойдёт, если ты</h3>
+        <ul>
+          <li>Владелец агентства, студии, сервиса, школы или эксперт с потоком клиентов</li>
+          <li>Работаешь один или с командой до 20 человек</li>
+          <li>Тонешь в переписке, заявках, документах и отчётах</li>
+          <li>Хочешь результат без необходимости разбираться в нейросетях самому</li>
+        </ul>
+      </div>
+      <div class="card no">
+        <h3>Не подойдёт, если</h3>
+        <ul>
+          <li>Нужна сложная разработка и интеграции «на миллион строк»</li>
+          <li>Хочется просто «поиграть с нейронкой» без конкретной задачи</li>
+          <li>Нужна волшебная кнопка, которая всё сделает без твоего участия</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. ФОРМА -->
+<section id="form">
+  <div class="wrap form-grid">
+    <div>
+      <h2>Запишись на&nbsp;бесплатный аудит</h2>
+      <div class="price-card">
+        <b>Разбор «Минус 10 часов рутины»</b>
+        <div class="price"><s>5 000 ₽</s><span class="free">Бесплатно</span></div>
+      </div>
+      <ul class="next">
+        <li><span>1</span><p><b>Оставь заявку</b>Займёт меньше минуты.</p></li>
+        <li><span>2</span><p><b>Напишу в течение дня</b>Согласуем удобное время в Telegram или по телефону.</p></li>
+        <li><span>3</span><p><b>60 минут в Zoom</b>Разбираем твою неделю и получаешь карту автоматизации.</p></li>
+      </ul>
+    </div>
+    <form class="card" id="lead-form" novalidate>
+      <div class="field"><label for="f-name">Как тебя зовут</label><input id="f-name" name="name" autocomplete="given-name" required></div>
+      <div class="field"><label for="f-contact">Telegram или телефон</label><input id="f-contact" name="contact" placeholder="@username или +7…" required></div>
+      <div class="field"><label for="f-biz">Чем занимаешься</label><input id="f-biz" name="biz" placeholder="Например: студия маникюра, онлайн-школа" required></div>
+      <div class="field"><label for="f-pain">Что съедает больше всего времени <i>(необязательно)</i></label><textarea id="f-pain" name="pain" placeholder="Например: отвечаю на одинаковые вопросы в директе"></textarea></div>
+      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label class="agree" id="agree-wrap"><input type="checkbox" id="f-agree" required> <span>Согласен на обработку персональных данных и с <a href="#">политикой конфиденциальности</a></span></label>
+      <button class="btn" type="submit" id="f-btn">Записаться на аудит</button>
+      <div class="status" id="f-status" role="status"></div>
+    </form>
+  </div>
+</section>
+
+<!-- 10. FAQ -->
+<section id="faq">
+  <div class="wrap faq">
+    <div class="sec-head">
+      <h2>Частые вопросы</h2>
+    </div>
+    <details><summary>Это продажа под видом аудита?</summary><p>Нет. На встрече мы разбираем твою неделю и ищем, что отдать ИИ. Если увидим, что внедрение тебе не нужно, — так и скажу. Карта автоматизации остаётся у тебя в любом случае.</p></details>
+    <details><summary>Нужно ли разбираться в ИИ?</summary><p>Нет. Всё собираю я. От тебя — рассказать, как устроена работа, дать доступы и материалы. В конце покажу, как пользоваться системой, на созвоне-обучении.</p></details>
+    <details><summary>Почему аудит бесплатный?</summary><p>Хочу, чтобы ты сначала увидел пользу, а потом решал. Если дальше работать не захочешь — карта и промпты остаются у тебя.</p></details>
+    <details><summary>Сколько стоит внедрение?</summary><p>Зависит от задач, считаем после аудита. Для первых клиентов действует цена ниже рыночной в обмен на отзыв и замер результата.</p></details>
+    <details><summary>Что если не заработает?</summary><p>На старте письменно фиксируем 2–3 задачи. Если через 14 дней ассистенты их не выполняют — донастраиваю бесплатно, пока не заработают.</p></details>
+    <details><summary>Где хранятся мои данные?</summary><p>В твоих аккаунтах и сервисах — таблицах, CRM, Notion, Telegram. Доступы остаются у тебя, и после завершения работы ты можешь их у меня забрать.</p></details>
+  </div>
+</section>
+
+<!-- 11. ФИНАЛЬНЫЙ CTA -->
+<section>
+  <div class="wrap">
+    <div class="final">
+      <h2>Верни себе 10&nbsp;часов в&nbsp;неделю</h2>
+      <p class="lead">Начни с бесплатного аудита — за час поймёшь, что из твоей рутины ИИ заберёт уже в этом месяце.</p>
+      <a href="#form" class="btn">Записаться на бесплатный аудит</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a href="#top" class="logo">Helpy<span> Lab</span></a>
+      <small>Пенза, Россия</small>
+      <small>© <span id="year">2026</span></small>
+    </div>
+    <div class="socials">
+      <a class="social" href="https://t.me/Revengerzz" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M2.6 11.2 20 4.5c.8-.3 1.5.2 1.2 1.4l-3 14c-.2 1-.8 1.2-1.6.8l-4.5-3.3-2.2 2.1c-.2.2-.5.4-.9.4l.3-4.6 8.4-7.6c.4-.3-.1-.5-.6-.2L6.8 14l-4.4-1.4c-1-.3-1-1 .2-1.4z"/></svg>
+      </a>
+      <a class="social" href="https://wa.me/79933749409" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path fill="currentColor" transform="translate(7.32 7.32) scale(.39)" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+      </a>
+      <a class="social" href="tel:+79933749409" aria-label="Позвонить" title="Позвонить">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+      </a>
+      <a class="social" href="https://instagram.com/konstantin.score" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram*">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>
+      </a>
+    </div>
+  </div>
+  <p class="wrap foot-note">* Instagram принадлежит компании Meta, деятельность которой признана экстремистской и запрещена на территории РФ.</p>
+</footer>
+
+<div class="float-cta" id="float-cta"><a href="#form" class="btn" style="width:100%">Записаться на бесплатный аудит</a></div>
+
+<script>
+/* ===== НАСТРОЙКА TELEGRAM-БОТА =====
+   1. В Telegram открой @BotFather → /newbot → получи токен.
+   2. Открой своего нового бота и нажми /start (иначе он не сможет тебе писать).
+   3. Узнай свой chat_id у @userinfobot.
+   4. Вставь значения ниже.
+   Внимание: токен виден в коде страницы. Для старта нормально,
+   при большом трафике лучше перенести отправку на сервер (Cloudflare Worker). */
+const BOT_TOKEN = 'ВСТАВЬ_ТОКЕН';
+const CHAT_ID   = 'ВСТАВЬ_CHAT_ID';
+const TG_FALLBACK = 'https://t.me/Revengerzz';
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* --- живой фон: пятна плавно тянутся за мышкой, сами медленно плывут и смещаются по ходу скролла --- */
+if(!reduceMotion){
+  const blobs = [...document.querySelectorAll('.glow span')];
+  // k — насколько пятно реагирует на мышь, sx/sy — путь по ходу скролла (доли экрана), f — скорость дрейфа
+  const cfg = [{k:120, sx:-.45, sy:.35, f:.00021}, {k:-90, sx:.55, sy:-.2, f:.00017}, {k:70, sx:-.3, sy:-.45, f:.00026}];
+  let mx = 0, my = 0, cx = 0, cy = 0;
+  window.addEventListener('pointermove', e=>{ mx = e.clientX/innerWidth*2-1; my = e.clientY/innerHeight*2-1; }, {passive:true});
+  (function tick(t){
+    cx += (mx-cx)*.05; cy += (my-cy)*.05;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const p = max > 0 ? scrollY/max : 0;
+    blobs.forEach((b,i)=>{
+      const c = cfg[i];
+      const x = cx*c.k + p*c.sx*innerWidth + Math.sin(t*c.f + i*2)*40;
+      const y = cy*c.k + p*c.sy*innerHeight + Math.cos(t*c.f*1.3 + i)*40;
+      b.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
+    });
+    requestAnimationFrame(tick);
+  })(0);
+}
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* --- демо-чат на первом экране --- */
+const script = [
+  ['sys','03:12 · новая заявка из Instagram'],
+  ['in','Здравствуйте! Сколько стоит ваша услуга и есть ли запись на эту неделю?','03:12'],
+  ['out','Здравствуйте! Стоимость от 3 000 ₽. Свободно в среду в 14:00 и пятницу в 11:00 — какое время удобнее?','03:12'],
+  ['in','Среда подойдёт 👍','03:13'],
+  ['out','Готово, вы записаны на среду, 14:00. Накануне пришлю напоминание.','03:13'],
+  ['sys','✓ Клиент внесён в таблицу · ✓ Сводка отправлена владельцу']
+];
+const chat = document.getElementById('chat');
+function runChat(){
+  chat.innerHTML = '';
+  script.forEach(([type,text,time],i)=>{
+    const el = document.createElement('div');
+    el.className = 'msg ' + type;
+    el.textContent = text;
+    if(time){ const t=document.createElement('time'); t.textContent=time; el.appendChild(t); }
+    chat.appendChild(el);
+    if(reduceMotion){ el.classList.add('show'); return; }
+    setTimeout(()=>el.classList.add('show'), 600 + i*1100);
+  });
+  if(!reduceMotion) setTimeout(runChat, 600 + script.length*1100 + 4000);
+}
+runChat();
+
+/* --- калькулятор --- */
+const fmt = n => Math.round(n).toLocaleString('ru-RU');
+const rH = document.getElementById('r-hours'), rD = document.getElementById('r-days'), rR = document.getElementById('r-rate');
+// крупные суммы: до миллиона — с округлением до тысяч, дальше — «1,86 млн»
+const money = n => n >= 1e6
+  ? (n/1e6).toLocaleString('ru-RU',{maximumFractionDigits:2}) + ' млн ₽'
+  : fmt(Math.round(n/1000)*1000) + ' ₽';
+function calc(){
+  const h = +rH.value, days = +rD.value, rate = +rR.value;
+  const month = h*days*4.3, monthMoney = month*rate;
+  document.getElementById('o-hours').textContent = String(h).replace('.',',') + ' ч';
+  document.getElementById('o-days').textContent = days;
+  document.getElementById('o-rate').textContent = fmt(rate) + ' ₽';
+  document.getElementById('res-total').textContent = '≈ ' + fmt(month) + ' ч';
+  document.getElementById('res-money').textContent = '≈ ' + money(monthMoney);
+  document.getElementById('res-year').textContent = '≈ ' + money(monthMoney*12);
+}
+[rH,rD,rR].forEach(r=>r.addEventListener('input',calc));
+calc();
+
+/* --- плавающая кнопка на мобиле --- */
+const floatCta = document.getElementById('float-cta');
+const hero = document.querySelector('.hero'), formSec = document.getElementById('form');
+function toggleFloat(){
+  const pastHero = hero.getBoundingClientRect().bottom < 0;
+  const r = formSec.getBoundingClientRect();
+  const atForm = r.top < window.innerHeight && r.bottom > 0;
+  floatCta.classList.toggle('show', pastHero && !atForm);
+}
+window.addEventListener('scroll', toggleFloat, {passive:true});
+
+/* --- форма --- */
+const form = document.getElementById('lead-form'), status = document.getElementById('f-status'), btn = document.getElementById('f-btn');
+function showStatus(type, html){ status.className = 'status ' + type; status.innerHTML = html; }
+form.addEventListener('submit', async e=>{
+  e.preventDefault();
+  if(form.website.value) return; // honeypot
+  let ok = true;
+  ['f-name','f-contact','f-biz'].forEach(id=>{
+    const el = document.getElementById(id), bad = !el.value.trim();
+    el.classList.toggle('err', bad); if(bad) ok = false;
+  });
+  const agree = document.getElementById('f-agree');
+  document.getElementById('agree-wrap').classList.toggle('err', !agree.checked);
+  if(!agree.checked) ok = false;
+  if(!ok){ showStatus('bad','Заполни обязательные поля и отметь согласие.'); return; }
+
+  const text = [
+    '🔥 Новая заявка на аудит',
+    'Имя: ' + form.name.value.trim(),
+    'Контакт: ' + form.contact.value.trim(),
+    'Бизнес: ' + form.biz.value.trim(),
+    'Что съедает время: ' + (form.pain.value.trim() || '—')
+  ].join('\n');
+
+  btn.disabled = true; btn.textContent = 'Отправляю…';
+  try{
+    if(BOT_TOKEN.startsWith('ВСТАВЬ')) throw new Error('bot not configured');
+    const res = await fetch('https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({chat_id: CHAT_ID, text})
+    });
+    if(!res.ok) throw new Error('send failed');
+    form.reset();
+    showStatus('ok','Готово! Напишу тебе в течение дня, чтобы согласовать время.');
+  }catch(err){
+    showStatus('bad','Не получилось отправить заявку. Напиши мне напрямую: <a href="' + TG_FALLBACK + '" target="_blank" rel="noopener">Telegram @Revengerzz</a>');
+  }finally{
+    btn.disabled = false; btn.textContent = 'Записаться на аудит';
+  }
+});
+form.querySelectorAll('input,textarea').forEach(el=>el.addEventListener('input',()=>el.classList.remove('err')));
+</script>
+</body>
+</html>
