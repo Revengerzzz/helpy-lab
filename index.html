@@ -93,6 +93,22 @@ h3{font-size:var(--fs-md);font-weight:700;line-height:1.3}
 .tm-z{height:100%;transition:transform .7s cubic-bezier(.4,0,.2,1)}
 .tm-st{margin-top:8px;padding-top:7px;border-top:1px solid var(--line);font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tm-st.ok{color:var(--blue);font-weight:700}
+/* вариант В: сверху крупно сайт и приложение, снизу 4 маленькие квадратные карточки ИИ-помощников */
+.team-g{grid-template-columns:repeat(4,minmax(0,1fr))}
+.team-g .tm:not(.ag){grid-column:span 2}
+.team-g .tm:not(.ag) .tm-b{height:150px}
+.ag-l{grid-column:1/-1;margin:4px 2px -2px;font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--muted)}
+.tm.ag{background:rgba(255,255,255,.6);padding:8px}
+.tm.ag .tm-h{margin-bottom:5px}
+.tm.ag .tm-h b{font-size:11px;font-weight:600;color:var(--muted)}
+.tm.ag .tm-h i{width:6px;height:6px}
+.tm.ag .tm-b{height:124px;zoom:.62;opacity:.85}
+.tm.ag .tm-st{margin-top:6px;padding-top:5px;font-size:9.5px}
+@media (max-width:560px){
+  .team-g{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .team-g .tm:not(.ag){grid-column:auto}
+  .tm.ag .tm-b{zoom:.72}
+}
 @keyframes tmPulse{50%{opacity:.35}}
 /* сайт */
 .br{display:flex;gap:3px;align-items:center;background:#EEF2F8;border-radius:6px;padding:4px 6px;margin-bottom:6px;color:var(--muted);font-size:9.5px}
@@ -450,7 +466,6 @@ form{display:flex;flex-direction:column;gap:14px}
   .hero{min-height:calc(100vh - 68px);min-height:calc(100svh - 68px);display:flex;align-items:center;padding:40px 0}
   .hero .wrap{max-width:1280px;width:100%;grid-template-columns:.9fr 1.1fr;gap:48px}
   .hero h1{font-size:clamp(30px,3.3vw,46px)}
-  .team-g{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 /* ===== Адаптив ===== */
 @media (max-width:960px){
@@ -558,7 +573,8 @@ form{display:flex;flex-direction:column;gap:14px}
           </div></div>
           <div class="tm-st"></div>
         </div>
-        <div class="tm" id="tm-admin">
+        <div class="ag-l">+ ИИ-помощники в фоне</div>
+        <div class="tm ag" id="tm-admin">
           <div class="tm-h"><i></i><b>Администратор</b></div>
           <div class="tm-b"><div class="tm-z">
             <span class="tb in">Запись на среду есть?</span>
@@ -568,7 +584,26 @@ form{display:flex;flex-direction:column;gap:14px}
           </div></div>
           <div class="tm-st"></div>
         </div>
-        <div class="tm" id="tm-buh">
+        <div class="tm ag" id="tm-an">
+          <div class="tm-h"><i></i><b>Аналитик</b></div>
+          <div class="tm-b"><div class="tm-z">
+            <div class="an-top"><strong>0</strong><em>+27%</em></div>
+            <div class="an-l">записей за неделю</div>
+            <div class="bars"><span></span><span></span><span></span><span></span><span></span><span></span><span class="hi"></span><b class="tip">Сб: пик записей</b></div>
+          </div></div>
+          <div class="tm-st"></div>
+        </div>
+        <div class="tm ag" id="tm-smm">
+          <div class="tm-h"><i></i><b>СММщик</b></div>
+          <div class="tm-b"><div class="tm-z">
+            <div class="doc"><b></b><u></u><u></u><u></u></div>
+            <div class="files"><span></span><span></span><span></span><em>3 файла</em></div>
+            <div class="bar"><i></i></div>
+            <div class="pub">✓ Instagram и Telegram</div>
+          </div></div>
+          <div class="tm-st"></div>
+        </div>
+        <div class="tm ag" id="tm-buh">
           <div class="tm-h"><i></i><b>Бухгалтер</b></div>
           <div class="tm-b"><div class="tm-z">
             <table class="tt">
@@ -579,25 +614,6 @@ form{display:flex;flex-direction:column;gap:14px}
               <tr><td>Кафе Ритм</td><td class="r" data-v="10 500"></td><td class="st">—</td></tr>
               <tr class="tot"><td>Итого</td><td class="r">84 000 ₽</td><td></td></tr>
             </table>
-          </div></div>
-          <div class="tm-st"></div>
-        </div>
-        <div class="tm" id="tm-smm">
-          <div class="tm-h"><i></i><b>СММщик</b></div>
-          <div class="tm-b"><div class="tm-z">
-            <div class="doc"><b></b><u></u><u></u><u></u></div>
-            <div class="files"><span></span><span></span><span></span><em>3 файла</em></div>
-            <div class="bar"><i></i></div>
-            <div class="pub">✓ Instagram и Telegram</div>
-          </div></div>
-          <div class="tm-st"></div>
-        </div>
-        <div class="tm" id="tm-an">
-          <div class="tm-h"><i></i><b>Аналитик</b></div>
-          <div class="tm-b"><div class="tm-z">
-            <div class="an-top"><strong>0</strong><em>+27%</em></div>
-            <div class="an-l">записей за неделю</div>
-            <div class="bars"><span></span><span></span><span></span><span></span><span></span><span></span><span class="hi"></span><b class="tip">Сб: пик записей</b></div>
           </div></div>
           <div class="tm-st"></div>
         </div>
