@@ -247,7 +247,7 @@ input[type=range]{width:100%;accent-color:var(--blue);height:28px}
 .tn small{display:block;font-size:clamp(9.5px,2.3cqw,11.5px);font-weight:600;line-height:1.1;opacity:.85;margin-top:0;white-space:nowrap}
 /* выноска потери: точка на краю → линия вверх с закруглением → вправо, цифра и подпись; вниз «капают» точки */
 .lk{position:absolute;width:0;height:0;transition:opacity .3s}
-.fz.sel .lk:not(.on){opacity:.45}
+.fz.sel .lk:not(.on){opacity:.6}
 .lk-dot{position:absolute;left:-6px;top:-6px;width:12px;height:12px;border-radius:50%;background:var(--leak);box-shadow:0 0 0 4px var(--leak-halo);transition:background .4s,box-shadow .4s}
 .lk-line{position:absolute;left:-1px;bottom:0;width:34px;height:20px;border:2px solid var(--leak);border-right:0;border-bottom:0;border-top-left-radius:12px;transition:border-color .4s}
 /* «С системой»: выноски зелёные — потери под контролем */
@@ -282,18 +282,18 @@ input[type=range]{width:100%;accent-color:var(--blue);height:28px}
 /* ===== Услуги ===== */
 .svc{display:grid;grid-template-columns:1fr 1fr .8fr;gap:16px;align-items:stretch}
 .sv{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);padding:30px;display:flex;flex-direction:column;gap:12px}
-.sv.small{background:transparent}
 .sv h3{font-size:var(--fs-lg)}
 .sv .price{font-family:var(--display);font-size:26px;font-weight:600}
 .sv .price small{font-family:Manrope,sans-serif;font-size:var(--fs-sm);color:var(--muted);font-weight:500;margin-left:6px}
 .sv p{color:var(--muted)}
 .sv .more{margin-top:auto;font-size:var(--fs-sm);color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
-.combo{margin-top:18px;font-weight:600}
+.combo{margin-top:16px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;text-align:center;background:rgba(43,91,255,.05);border:1px dashed rgba(43,91,255,.4);border-radius:var(--r-md);padding:16px 20px;font-weight:600}
 .combo b{background:var(--lime);color:var(--lime-ink);padding:2px 8px;border-radius:6px}
 
 /* ===== Демо: настоящее мини-приложение ===== */
 .demo-box{background:#0E0A07;border-radius:var(--r-lg);padding:48px;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center;color:#F3E9DA}
 .demo-box .lead{color:#C9B9A3}
+.demo-note{margin-top:10px;font-size:var(--fs-sm);color:#A8977F}
 .demo-box ul{list-style:none;display:flex;flex-direction:column;gap:10px;margin:24px 0 28px}
 .demo-box li::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#E3B76B;margin-right:12px;vertical-align:middle}
 .demo-box .btn{background:#F3E9DA;color:#0E0A07}
@@ -325,13 +325,12 @@ input[type=range]{width:100%;accent-color:var(--blue);height:28px}
 .ai-cases{margin-top:40px}
 .ai-cases > h3{font-size:var(--fs-lg);margin-bottom:16px}
 .ai-g{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.ai-c{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:20px;align-items:center}
+.ai-c{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:20px;align-items:start}
 .ai-c h4{font-size:var(--fs-md);margin-bottom:8px;line-height:1.3}
-/* логотипы клиентов; у Profi Cargo много белых полей — кадрируем по надписи */
+/* логотипы клиентов — одинаковые квадраты; Profi Cargo — кадрированная копия без белых полей */
 .ai-res{margin-top:12px;font-size:var(--fs-sm);color:var(--muted)}
 .ai-res b{display:block;white-space:nowrap;font:600 clamp(17px,1.7vw,22px)/1.2 var(--display);color:var(--blue);margin-bottom:2px}
-.ai-logo{width:48px;height:48px;border-radius:12px;object-fit:cover;border:1px solid var(--line);margin-bottom:14px;background:#fff}
-.ai-logo.wide{width:96px}
+.ai-logo{width:56px;height:56px;border-radius:14px;object-fit:cover;border:1px solid var(--line);margin-bottom:14px;background:#fff}
 .ai-c p{color:var(--muted);font-size:15px}
 .ai-c .tm{border-color:var(--line);background:var(--paper)}
 .ai-c .tm-b{height:178px}
@@ -374,7 +373,8 @@ input[type=range]{width:100%;accent-color:var(--blue);height:28px}
 .photo img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
 .about p{font-size:var(--fs-md);color:#3D4555;margin-top:16px;max-width:600px}
 .about ul{list-style:none;margin-top:24px;border-top:1px solid var(--line)}
-.about li{padding:14px 0;border-bottom:1px solid var(--line)}
+.about li{padding:14px 0 14px 32px;border-bottom:1px solid var(--line);position:relative}
+.about li::before{content:"";position:absolute;left:0;top:16px;width:20px;height:20px;border-radius:50%;background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.6 2.6L14 7.6' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat}
 
 /* ===== Сравнение ===== */
 .cmp{width:100%;border-collapse:collapse;background:var(--white);border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line)}
@@ -385,11 +385,23 @@ input[type=range]{width:100%;accent-color:var(--blue);height:28px}
 .cmp td:last-child{font-weight:700}
 .cmp tr:last-child td{border-bottom:0}
 .why{margin-top:24px;max-width:720px;color:#3D4555;font-size:var(--fs-md)}
+/* полосы для ритма страницы */
+.band-dark{background:var(--navy);color:#fff}
+.band-dark h2{color:#fff}
+.band-dark .cmp{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.14)}
+.band-dark .cmp th,.band-dark .cmp td{border-bottom-color:rgba(255,255,255,.12)}
+.band-dark .cmp thead th,.band-dark .cmp td:first-child{color:rgba(255,255,255,.6)}
+.band-dark .cmp thead th:last-child{color:var(--sky)}
+.band-dark .cmp td:last-child{color:#fff}
+.band-dark .why{color:rgba(255,255,255,.75)}
+.band-dark .why b{color:#fff}
+.band-white{background:var(--white)}
+.band-white .guar{background:var(--paper)}
 
 /* ===== Как работаю ===== */
 .how{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:h}
-.hw{border-top:2px solid var(--navy);padding-top:18px}
-.hw .n{font-family:var(--display);color:var(--blue);font-size:15px;margin-bottom:10px}
+.hw{border-top:2px solid #C9D6FF;padding-top:18px}
+.hw .n{font-family:var(--display);color:var(--blue);font-size:var(--fs-lg);line-height:1.1;margin-bottom:10px}
 .hw h3{margin-bottom:8px}
 .hw p{color:var(--muted);font-size:15px}
 .guar{margin-top:32px;display:flex;gap:18px;align-items:flex-start;background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);padding:26px}
@@ -403,20 +415,22 @@ input[type=range]{width:100%;accent-color:var(--blue);height:28px}
 .get-cta{grid-area:cta;margin-top:32px}
 .tick{list-style:none;display:grid;gap:12px}
 .tick li{display:flex;gap:12px;align-items:flex-start}
-.tick li::before{content:"✓";flex:none;width:22px;height:22px;margin-top:1px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:700;font-size:12px}
+.tick li::before{content:"";flex:none;width:22px;height:22px;margin-top:1px;border-radius:50%;background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.6 2.6L14 7.6' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat}
 .checks li{background:var(--white);border:1px solid var(--line);border-radius:var(--r-md);padding:16px 18px}
 .get-bonus{margin-top:12px;background:rgba(43,91,255,.05);border:1px dashed rgba(43,91,255,.4);border-radius:var(--r-md);padding:20px 22px}
 .get-bonus h3{font-size:var(--fs-sm);color:var(--blue);margin-bottom:14px}
 .get-bonus .tick{gap:10px;font-size:var(--fs-sm)}
 
 /* ===== Кому подойдёт ===== */
-.fit{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.fit{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fit .yes,.fit .no{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px 30px 14px}
+.fit .no{background:rgba(255,255,255,.5)}
 .fit h3{margin-bottom:14px}
-.fit ul{list-style:none;border-top:1px solid var(--line)}
-.fit li{padding:13px 0 13px 30px;border-bottom:1px solid var(--line);position:relative}
-.fit li::before{position:absolute;left:0;top:12px;font-weight:700}
-.fit .yes li::before{content:"✓";color:#1E9E57}
-.fit .no li::before{content:"✕";color:var(--danger)}
+.fit ul{list-style:none}
+.fit li{padding:13px 0 13px 32px;border-top:1px solid var(--line);position:relative}
+.fit li::before{content:"";position:absolute;left:0;top:15px;width:20px;height:20px;border-radius:50%}
+.fit .yes li::before{background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 10.5l2.6 2.6L14 7.6' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat}
+.fit .no li::before{background:#E6EAF2 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M7 7l6 6M13 7l-6 6' fill='none' stroke='%235B6475' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/20px no-repeat}
 
 /* ===== FAQ ===== */
 .faq{border-top:1px solid var(--line);max-width:860px}
@@ -517,7 +531,8 @@ form{display:flex;flex-direction:column;gap:14px}
   .fn-card{padding:20px}
   .ai-c{grid-template-columns:1fr}
   .calc-in,.calc-res{padding:24px}
-  .how{grid-template-columns:1fr}
+  .how{grid-template-columns:1fr;row-gap:24px}
+  .hw{padding-top:14px}.hw .n{margin-bottom:6px}
   .cmp th,.cmp td{padding:14px 12px;font-size:14px}
   .form-wrap form{padding:22px}
   .demo-phone{height:640px;max-height:78vh;padding:7px;border-radius:38px}
@@ -702,7 +717,7 @@ form{display:flex;flex-direction:column;gap:14px}
 </section>
 
 <!-- 6. ПОЧЕМУ НЕ СТУДИЯ -->
-<section class="sec" style="padding-top:0">
+<section class="sec band-dark">
   <div class="wrap">
     <div class="sec-head"><h2>Почему не студия</h2></div>
     <table class="cmp">
@@ -720,7 +735,7 @@ form{display:flex;flex-direction:column;gap:14px}
 </section>
 
 <!-- 7. КЕЙСЫ -->
-<section class="sec" id="cases" style="padding-top:0">
+<section class="sec" id="cases">
   <div class="wrap">
     <div class="sec-head"><h2>Кейсы</h2></div>
     <div class="cases">
@@ -745,7 +760,7 @@ form{display:flex;flex-direction:column;gap:14px}
       <h3>ИИ-сотрудники в работе</h3>
       <div class="ai-g">
         <div class="ai-c">
-          <div><img class="ai-logo wide" src="logo/cases/profi-cargo.png" alt="Profi Cargo" width="96" height="48" loading="lazy"><h4>Рекрутинг водителей: документы кандидатов</h4><p>Водитель присылает фото в WhatsApp или Viber. ИИ-сотрудник раскладывает их по папке, проверяет сроки, загружает на Google Диск и вносит кандидата в таблицу.</p><p class="ai-res"><b>15 мин → 1 мин</b> на одного кандидата</p></div>
+          <div><img class="ai-logo" src="logo/cases/profi-cargo-square.png" alt="Profi Cargo" width="56" height="56" loading="lazy"><h4>Рекрутинг водителей: документы кандидатов</h4><p>Водитель присылает фото в WhatsApp или Viber. ИИ-сотрудник раскладывает их по папке, проверяет сроки, загружает на Google Диск и вносит кандидата в таблицу.</p><p class="ai-res"><b>15 мин → 1 мин</b> на одного кандидата</p></div>
           <div class="tm" id="ai-docs">
             <div class="tm-h"><i></i><b>Документы водителя</b></div>
             <div class="tm-b"><div class="tm-z">
@@ -761,7 +776,7 @@ form{display:flex;flex-direction:column;gap:14px}
           </div>
         </div>
         <div class="ai-c">
-          <div><img class="ai-logo" src="logo/cases/dauto.png" alt="Dauto" width="48" height="48" loading="lazy"><h4>Dauto: посты об автомобилях из США</h4><p>Достаточно ссылки на лот аукциона: ИИ-сотрудник пишет пост, отбирает лучшие фото и делает главную картинку с инфографикой.</p><p class="ai-res"><b>20 мин → 2 мин</b> на пост. Это 9 часов в месяц, которые больше не уходят на рутину</p></div>
+          <div><img class="ai-logo" src="logo/cases/dauto.png" alt="Dauto" width="56" height="56" loading="lazy"><h4>Dauto: посты об автомобилях из США</h4><p>Достаточно ссылки на лот аукциона: ИИ-сотрудник пишет пост, отбирает лучшие фото и делает главную картинку с инфографикой.</p><p class="ai-res"><b>20 мин → 2 мин</b> на пост. Это 9 часов в месяц, которые больше не уходят на рутину</p></div>
           <div class="tm" id="ai-dauto">
             <div class="tm-h"><i></i><b>Пост для канала</b></div>
             <div class="tm-b"><div class="tm-z">
@@ -787,6 +802,7 @@ form{display:flex;flex-direction:column;gap:14px}
       <div>
         <h2>Попробуйте настоящее мини-приложение</h2>
         <p class="lead">Это мини-приложение для барбершопа. Приложение полностью кликабельное, можете посмотреть и изучить функционал.</p>
+        <p class="demo-note">Дизайн сделан под бренд барбершопа. Ваше приложение будет в ваших цветах.</p>
         <ul>
           <li>Персонаж «зарастает» по дням и сам зовёт к мастеру</li>
           <li>Запись в пару касаний и валюта «стрижкоины» за визиты</li>
@@ -834,14 +850,14 @@ form{display:flex;flex-direction:column;gap:14px}
 </section>
 
 <!-- 10. КАК РАБОТАЮ -->
-<section class="sec" style="padding-top:0">
+<section class="sec band-white">
   <div class="wrap">
     <div class="sec-head"><h2>Как работаю</h2></div>
     <div class="how">
-      <div class="hw"><div class="n">1</div><h3>Бесплатный разбор — 40 минут</h3><p>Смотрим, где вы теряете клиентов: как они вас находят, как записываются, и возвращаются ли.</p></div>
-      <div class="hw"><div class="n">2</div><h3>Несколько вариантов под ваш бюджет</h3><p>Предложу 2–3 варианта: от простого старта до решения под ключ. Цену фиксируем до начала работы.</p></div>
-      <div class="hw"><div class="n">3</div><h3>Рабочая версия через несколько дней</h3><p>Вы щёлкаете, пробуете, говорите, что поменять. Запускаем, когда вам нравится.</p></div>
-      <div class="hw"><div class="n">4</div><h3>Запуск и сопровождение</h3><p>Показываю, как пользоваться, остаюсь на связи.</p></div>
+      <div class="hw"><div class="n">01</div><h3>Бесплатный разбор — 40 минут</h3><p>Смотрим, где вы теряете клиентов: как они вас находят, как записываются, и возвращаются ли.</p></div>
+      <div class="hw"><div class="n">02</div><h3>Несколько вариантов под ваш бюджет</h3><p>Предложу 2–3 варианта: от простого старта до решения под ключ. Цену фиксируем до начала работы.</p></div>
+      <div class="hw"><div class="n">03</div><h3>Рабочая версия через несколько дней</h3><p>Вы щёлкаете, пробуете, говорите, что поменять. Запускаем, когда вам нравится.</p></div>
+      <div class="hw"><div class="n">04</div><h3>Запуск и сопровождение</h3><p>Показываю, как пользоваться, остаюсь на связи.</p></div>
     </div>
     <div class="guar">
       <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
@@ -851,7 +867,7 @@ form{display:flex;flex-direction:column;gap:14px}
 </section>
 
 <!-- 11. КОМУ ПОДОЙДЁТ -->
-<section class="sec" style="padding-top:0">
+<section class="sec">
   <div class="wrap">
     <div class="sec-head"><h2>Кому подойдёт</h2></div>
     <div class="fit">
