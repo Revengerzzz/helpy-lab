@@ -44,7 +44,7 @@ h3{font-size:var(--fs-md);font-weight:700;line-height:1.3}
 .btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
 .btn-ghost:hover{background:var(--white)}
 .free{display:inline-flex;align-items:center;gap:10px;font-size:var(--fs-sm);color:var(--muted)}
-.free s{opacity:.7}
+.free s{text-decoration-color:rgba(217,56,56,.6);text-decoration-thickness:2px;white-space:nowrap}
 .free b{background:var(--lime);color:var(--lime-ink);padding:3px 10px;border-radius:var(--r-pill);font-weight:700}
 
 /* ===== Шапка ===== */
@@ -233,6 +233,8 @@ input[type=range]{width:100%;accent-color:var(--blue);height:28px}
 .fn-wrap.sys{--leak:#16A34A;--leak-halo:rgba(22,163,74,.14)}
 .lk-t{position:absolute;left:40px;top:-34px;width:150px;line-height:1.25}
 .lk-t b{display:block;font:600 21px var(--display);color:var(--leak);transition:color .4s;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.lk.gain .lk-t b{color:var(--blue)}
+.lk.gain .lk-dr{display:none}
 .lk-t span{display:block;color:var(--muted);font-size:13.5px;margin-top:2px}
 .lk-dr{position:absolute;left:-3px;width:6px;height:6px;border-radius:50%;background:var(--leak);animation:lkdr 2.4s infinite}
 .lk-dr:nth-of-type(3){top:14px;opacity:.65}.lk-dr:nth-of-type(4){top:26px;opacity:.4;animation-delay:.3s}.lk-dr:nth-of-type(5){top:38px;opacity:.2;animation-delay:.6s}
@@ -305,6 +307,8 @@ input[type=range]{width:100%;accent-color:var(--blue);height:28px}
 .ai-c{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:20px;align-items:center}
 .ai-c h4{font-size:var(--fs-md);margin-bottom:8px;line-height:1.3}
 /* логотипы клиентов; у Profi Cargo много белых полей — кадрируем по надписи */
+.ai-res{margin-top:12px;font-size:var(--fs-sm);color:var(--muted)}
+.ai-res b{display:block;white-space:nowrap;font:600 clamp(17px,1.7vw,22px)/1.2 var(--display);color:var(--blue);margin-bottom:2px}
 .ai-logo{width:48px;height:48px;border-radius:12px;object-fit:cover;border:1px solid var(--line);margin-bottom:14px;background:#fff}
 .ai-logo.wide{width:96px}
 .ai-c p{color:var(--muted);font-size:15px}
@@ -401,10 +405,21 @@ input[type=range]{width:100%;accent-color:var(--blue);height:28px}
 .faq details p{padding:0 40px 22px 0;color:var(--muted);max-width:720px}
 
 /* ===== Форма ===== */
-.form-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start;background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);padding:44px}
-.form-wrap .free{margin-top:18px}
+.form-wrap{display:grid;grid-template-columns:.9fr 1.1fr;grid-template-rows:auto 1fr;grid-template-areas:"head form" "next form";gap:0 56px;align-items:start}
+.fw-head{grid-area:head}
+.form-wrap form{grid-area:form;background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);padding:32px;gap:18px}
+.price-card{display:flex;flex-direction:column;align-items:flex-start;gap:16px;margin-top:28px;padding:24px 26px;background:var(--white);border:1px solid var(--line);border-radius:var(--r-md)}
+.price-card>b{font-size:var(--fs-md)}
+.price-card .free{font-size:var(--fs-base)}
+.fw-next{grid-area:next;align-self:end;list-style:none;display:grid;gap:22px;margin:40px 0 52px} /* низ шагов — на уровне низа кнопки формы */
+.fw-next li{display:flex;gap:18px;align-items:flex-start}
+.fw-next .num{flex:none;width:34px;font-family:var(--display);font-size:var(--fs-lg);color:var(--blue);line-height:1.1}
+.fw-next p{color:var(--muted);font-size:var(--fs-sm)}
+.fw-next p b{display:block;color:var(--ink);font-size:var(--fs-base);margin-bottom:2px}
 form{display:flex;flex-direction:column;gap:14px}
-.in label{display:block;font-weight:600;font-size:var(--fs-sm);margin-bottom:6px}
+.in label{display:block;font-weight:600;font-size:var(--fs-sm);margin-bottom:8px}
+.in label i{color:var(--muted);font-style:normal;font-weight:400}
+.in input::placeholder,.in textarea::placeholder{color:#9AA3B5}
 .in input,.in textarea{width:100%;font:500 16px Manrope,sans-serif;color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:14px;padding:13px 14px}
 .in input:focus,.in textarea:focus{outline:none;border-color:var(--blue);background:#fff}
 .in textarea{min-height:92px;resize:vertical}
@@ -417,11 +432,16 @@ form{display:flex;flex-direction:column;gap:14px}
 .status.ok{color:#1E9E57}.status.bad{color:var(--danger)}
 
 /* ===== Подвал ===== */
-.foot{padding:40px 0 56px;color:var(--muted);font-size:var(--fs-sm)}
-.foot .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;border-top:1px solid var(--line);padding-top:28px}
-.foot .logo{color:var(--ink);font-size:16px}
-.foot a{text-decoration:none}
-.foot a:hover{color:var(--ink)}
+.foot{border-top:1px solid var(--line);padding:44px 0 48px;color:var(--muted);font-size:var(--fs-sm)}
+.foot-row{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-start}
+.foot .logo{color:var(--ink)}
+.foot .logo em{font-style:normal;color:var(--blue)}
+.foot small{display:block;margin-top:8px;font-size:var(--fs-sm)}
+.socials{display:flex;gap:10px}
+.social{width:48px;height:48px;display:grid;place-items:center;border-radius:var(--r-sm);background:var(--white);border:1px solid var(--line);color:var(--ink);transition:background .2s,color .2s,border-color .2s}
+.social svg{width:20px;height:20px}
+.social:hover{background:var(--blue);border-color:var(--blue);color:#fff}
+.foot-note{margin-top:28px;font-size:13px;color:var(--muted)}
 
 /* первый экран на компьютере: панель в 3 колонки, чтобы целиком влезала в экран */
 @media (min-width:961px){
@@ -433,6 +453,8 @@ form{display:flex;flex-direction:column;gap:14px}
 /* ===== Адаптив ===== */
 @media (max-width:960px){
   .hero .wrap,.calc,.about,.form-wrap,.fit,.get{grid-template-columns:1fr}
+  .form-wrap{grid-template-rows:none;grid-template-areas:"head" "form" "next";row-gap:32px}
+  .fw-next{margin:0}
   .svc{grid-template-columns:1fr}
   .how{grid-template-columns:1fr 1fr;row-gap:32px}
   .cases{grid-template-columns:1fr}
@@ -473,7 +495,7 @@ form{display:flex;flex-direction:column;gap:14px}
   .calc-in,.calc-res{padding:24px}
   .how{grid-template-columns:1fr}
   .cmp th,.cmp td{padding:14px 12px;font-size:14px}
-  .form-wrap{padding:24px;gap:28px}
+  .form-wrap form{padding:22px}
   .demo-phone{height:640px;max-height:78vh;padding:7px;border-radius:38px}
   .demo-frame{border-radius:32px}
   .hero-cta .btn{width:100%}
@@ -502,7 +524,7 @@ form{display:flex;flex-direction:column;gap:14px}
   <div class="hero-bg" aria-hidden="true"><canvas id="ribbon"></canvas></div>
   <div class="wrap">
     <div>
-      <h1>Сайты и мини-приложения, которые приводят клиентов.</h1>
+      <h1>Умные сайты и <span style="white-space:nowrap">мини-приложения</span> для бизнеса</h1>
       <p class="lead">Всё, чтобы вас находили, записывались в два клика и возвращались снова.</p>
       <div class="hero-cta">
         <a href="#form" class="btn">Вернуть клиентов</a>
@@ -698,7 +720,7 @@ form{display:flex;flex-direction:column;gap:14px}
       <h3>ИИ-сотрудники в работе</h3>
       <div class="ai-g">
         <div class="ai-c">
-          <div><img class="ai-logo wide" src="logo/cases/profi-cargo.png" alt="Profi Cargo" width="96" height="48" loading="lazy"><h4>Рекрутинг водителей: документы кандидатов</h4><p>Водитель присылает фото в WhatsApp или Viber. ИИ-сотрудник раскладывает их по папке, проверяет сроки, загружает на Google Диск и вносит кандидата в таблицу.</p></div>
+          <div><img class="ai-logo wide" src="logo/cases/profi-cargo.png" alt="Profi Cargo" width="96" height="48" loading="lazy"><h4>Рекрутинг водителей: документы кандидатов</h4><p>Водитель присылает фото в WhatsApp или Viber. ИИ-сотрудник раскладывает их по папке, проверяет сроки, загружает на Google Диск и вносит кандидата в таблицу.</p><p class="ai-res"><b>15 мин → 1 мин</b> на одного кандидата</p></div>
           <div class="tm" id="ai-docs">
             <div class="tm-h"><i></i><b>Документы водителя</b></div>
             <div class="tm-b"><div class="tm-z">
@@ -714,7 +736,7 @@ form{display:flex;flex-direction:column;gap:14px}
           </div>
         </div>
         <div class="ai-c">
-          <div><img class="ai-logo" src="logo/cases/dauto.png" alt="Dauto" width="48" height="48" loading="lazy"><h4>Dauto: посты об автомобилях из США</h4><p>Достаточно ссылки на лот аукциона: ИИ-сотрудник пишет пост, отбирает лучшие фото и делает главную картинку с инфографикой.</p></div>
+          <div><img class="ai-logo" src="logo/cases/dauto.png" alt="Dauto" width="48" height="48" loading="lazy"><h4>Dauto: посты об автомобилях из США</h4><p>Достаточно ссылки на лот аукциона: ИИ-сотрудник пишет пост, отбирает лучшие фото и делает главную картинку с инфографикой.</p><p class="ai-res"><b>20 мин → 2 мин</b> на пост. Это 9 часов в месяц, которые больше не уходят на рутину</p></div>
           <div class="tm" id="ai-dauto">
             <div class="tm-h"><i></i><b>Пост для канала</b></div>
             <div class="tm-b"><div class="tm-z">
@@ -871,32 +893,50 @@ form{display:flex;flex-direction:column;gap:14px}
 <section class="sec" id="form" style="padding-top:0">
   <div class="wrap">
     <div class="form-wrap">
-      <div>
+      <div class="fw-head">
         <h2>Запишитесь на бесплатный разбор</h2>
-        <p class="lead">Разбор «Где вы теряете клиентов». Напишу в течение дня, чтобы договориться о времени.</p>
-        <span class="free"><s>5 000 ₽</s><b>Бесплатно</b>40 минут онлайн или лично</span>
+        <div class="price-card">
+          <b>Разбор «Где вы теряете клиентов»</b>
+          <span class="free"><s>5 000 ₽</s><b>Бесплатно</b></span>
+        </div>
       </div>
       <form id="lead-form" novalidate>
         <div class="in"><label for="f-name">Как вас зовут</label><input id="f-name" name="name" autocomplete="name"></div>
-        <div class="in"><label for="f-contact">Telegram или телефон</label><input id="f-contact" name="contact" autocomplete="tel"></div>
-        <div class="in"><label for="f-biz">Чем занимается ваш бизнес</label><input id="f-biz" name="biz"></div>
-        <div class="in"><label for="f-pain">Что сейчас мешает больше всего (необязательно)</label><textarea id="f-pain" name="pain"></textarea></div>
+        <div class="in"><label for="f-contact">Telegram или телефон</label><input id="f-contact" name="contact" autocomplete="tel" placeholder="@username или +7…"></div>
+        <div class="in"><label for="f-biz">Чем занимается ваш бизнес</label><input id="f-biz" name="biz" placeholder="Например: барбершоп, автосервис"></div>
+        <div class="in"><label for="f-pain">Что сейчас мешает больше всего <i>(необязательно)</i></label><textarea id="f-pain" name="pain" placeholder="Например: клиенты приходят один раз и пропадают"></textarea></div>
         <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <label class="agree" id="agree-wrap"><input type="checkbox" id="f-agree">Согласен(на) на обработку персональных данных и с политикой конфиденциальности</label>
         <button class="btn" id="f-btn" type="submit">Записаться на разбор</button>
         <p class="status" id="f-status" role="status"></p>
       </form>
+      <ul class="fw-next">
+        <li><span class="num">01</span><p><b>Оставьте заявку</b>Займёт меньше минуты.</p></li>
+        <li><span class="num">02</span><p><b>Напишу в течение дня</b>Согласуем удобное время в Telegram или по телефону.</p></li>
+        <li><span class="num">03</span><p><b>40 минут онлайн или лично</b>Смотрим, где вы теряете клиентов. Уходите с планом, даже если не будем работать вместе.</p></li>
+      </ul>
     </div>
   </div>
 </section>
 </main>
 
 <footer class="foot">
-  <div class="wrap">
-    <a href="#" class="logo"><img src="logo/helpy-lab-mark-blue.svg" alt="" width="24" height="24">Helpy Lab</a>
-    <span>В Пензе встречаюсь лично, по всей России работаю онлайн</span>
-    <a href="https://t.me/Revengerzz" target="_blank" rel="noopener">Telegram</a>
+  <div class="wrap foot-row">
+    <div>
+      <a href="#" class="logo"><img src="logo/helpy-lab-mark-blue.svg" alt="" width="30" height="30"><span>Helpy <em>Lab</em></span></a>
+      <small>Пенза, Россия</small>
+      <small>© 2026</small>
+    </div>
+    <div class="socials">
+      <a class="social" href="https://t.me/Revengerzz" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M2.6 11.2 20 4.5c.8-.3 1.5.2 1.2 1.4l-3 14c-.2 1-.8 1.2-1.6.8l-4.5-3.3-2.2 2.1c-.2.2-.5.4-.9.4l.3-4.6 8.4-7.6c.4-.3-.1-.5-.6-.2L6.8 14l-4.4-1.4c-1-.3-1-1 .2-1.4z"/></svg>
+      </a>
+      <a class="social" href="https://instagram.com/konstantin.score" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram*">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>
+      </a>
+    </div>
   </div>
+  <p class="wrap foot-note">* Instagram принадлежит компании Meta, деятельность которой признана экстремистской и запрещена на территории РФ.</p>
 </footer>
 
 <script>
@@ -1131,7 +1171,8 @@ agent('tm-an', ({q, qa, status, at}) => {
   const data = {now:[100, 60, 35, 20, 6], sys:[100, 75, 55, 42, 22]};
   const rows = ['Искали услугу', 'Нашли вас', 'Написали', 'Записались', 'Вернулись'];
   const leaks = [null, 'не нашли сайт, цены и адрес', 'не поняли, как записаться', 'не дождались ответа', 'никто не напомнил'];
-  const leaksSys = {4:'напомнили'};
+  const leaksSys = {4:'вернулись по напоминанию'};
+  let sysMode = false;
   // замеры по картинке 848×1119: границы ступеней — дуги (arcs ниже); цифра — по центру стенки ступени
   // (между нижним краем светлого верхнего овала и низом ступени на центральной вертикали); точка — на правом борту
   const IW = 848, IH = 1119, CX = 424, FW = 62;
@@ -1178,7 +1219,10 @@ agent('tm-an', ({q, qa, status, at}) => {
     lks.forEach(lk => {
       const i = +lk.dataset.i, [x, y] = edge[i];
       lk.style.left = (CX + (x - CX) * scale(v, i - 1)) / IW * FW + '%';   // точка едет вместе с бортом своей ступени
-      lk.querySelector('b').textContent = '−' + Math.round(v[i-1] - v[i]);
+      // «С системой» на последней ступени показываем, сколько вернулось благодаря напоминаниям (сверх «Сейчас»)
+      const gain = sysMode && leaksSys[i];
+      lk.classList.toggle('gain', !!gain);
+      lk.querySelector('b').textContent = gain ? '+' + Math.round(v[i] - data.now[i]) : '−' + Math.round(v[i-1] - v[i]);
     });
     ret.textContent = Math.round(v[v.length - 1]);
   }
@@ -1206,6 +1250,7 @@ agent('tm-an', ({q, qa, status, at}) => {
   document.querySelectorAll('.fn-tabs button').forEach(btn => btn.addEventListener('click', () => {
     document.querySelectorAll('.fn-tabs button').forEach(b => b.setAttribute('aria-pressed', b === btn));
     const sys = btn.dataset.mode === 'sys';
+    sysMode = sys;
     fz.closest('.fn-wrap').classList.toggle('sys', sys);
     // подписи выносок, которые в режиме «С системой» звучат иначе
     lks.forEach(lk => { const t = leaksSys[lk.dataset.i]; if(t) lk.querySelector('.lk-t span').textContent = sys ? t : leaks[lk.dataset.i]; });
